@@ -109,7 +109,8 @@ For example, the `User` table can be problematic in a real schema as `User` is a
 
 ## Options
 
-The following preferences are currently available
+The following preferences are currently available:
+
 | Preference | Description |
 | --- | --- |
 | `Owner` | Postgresql object owner, only one for entire model |
