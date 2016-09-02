@@ -17,13 +17,13 @@ If you want to change the generation options please follow the steps below.
 
 Belows are the rules to convert from ERD elements to DDL.
 
-* All entities and columns are converted to create table statements as follow:
+All entities and columns are converted to create table statements as follow:
 
-`Project`: provides the database name, either derived from its name or through the `database` tag. If the tag is not present one will be created with the actual name.
-`Data Model`: part of a `Project`, it gives the schema where all member tables will be created. The schema name is provided by the `schema` tag, default value being `public` if none is defined.
-`ER Diagram`: groups all the Entities. Each entity will be transformed into a table and at this level the user can provide a table name prefix for them using the tag `prefix`.
-`Entity`: provides table description. The table name is composed of the `ER Diagram` prefix (optional) and the entity name. The `table` tag can be used to override the `Entity` name.
-`Column`: generates a table column. The column name is derived from the name but the `column` tag can be used to override it. The default value can be stored in the `default` tag.
++ `Project`: provides the database name, either derived from its name or through the `database` tag. If the tag is not present one will be created with the actual name.
++ `Data Model`: part of a `Project`, it gives the schema where all member tables will be created. The schema name is provided by the `schema` tag, default value being `public` if none is defined.
++ `ER Diagram`: groups all the Entities. Each entity will be transformed into a table and at this level the user can provide a table name prefix for them using the tag `prefix`.
++ `Entity`: provides table description. The table name is composed of the `ER Diagram` prefix (optional) and the entity name. The `table` tag can be used to override the `Entity` name.
++ `Column`: generates a table column. The column name is derived from the name but the `column` tag can be used to override it. The default value can be stored in the `default` tag.
 
 ### Index and constraints creation
 - primary key: each column marked as primary key will be part of the primary key constraint.
