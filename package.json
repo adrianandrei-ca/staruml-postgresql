@@ -1,11 +1,11 @@
 {
-    "name": "smart.surfer.staruml-postgres-ddl",
+    "name": "cubica.staruml-postgres",
     "title": "PSQL (PSQL Code Generator)",
     "description": "Generate Postgresql DDL from ERD",
     "homepage": "https://github.com/adrianandrei-ca/staruml-postgresql",
     "issues": "https://github.com/adrianandrei-ca/staruml-postgresql/issues",
-    "keywords": ["ddl", "erd", "database"],
-    "version": "1.0",
+    "keywords": ["ddl", "erd", "database", "postgresql"],
+    "version": "1.0.0",
     "author": {
         "name": "Adrian Andrei",
         "email": "adrian.andrei.ca@gmail.com",
@@ -16,4 +16,3 @@
         "staruml": ">=2.0.0"
     }
 }
-s
