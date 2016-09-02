@@ -64,7 +64,7 @@ The integer columns with length `-1` will be mapped to the equivalent serial typ
 For ease of use the files are generated following specific patterns. In general the files are in pairs, one ending in `_create` for the object creation and one ending in `_drop` that will clear all objects from the database.
 
 | Type | Creation filename pattern | Removal filename pattern | Deployment notes |
-| --- | --- | --- |
+| --- | --- | --- | --- |
 | Database | `db_create.sql` | `db_drop.sql` | Unless the database name is changed these files needs to be run once |
 | Schema | `schema_create.sql` | `schema_drop.sql` | If schema name changes these files need to be run followed by the table ones |
 | Diagram Tables | `<model name>_<diagram name>_create.sql` | `<model name>_<diagram name>_drop.sql` | Code for all the children diagram entities|
