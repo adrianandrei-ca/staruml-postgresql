@@ -99,6 +99,9 @@ define(function (require, exports, module) {
 	}
 	
 	function tag(name, elem) {
+		if (!elem || typeof(elem.tags) === 'undefined') {
+			return null;
+		}
 		var len = elem.tags.length;
 		for (var i = 0; i < len; i++) {
 			var tag = elem.tags[i];

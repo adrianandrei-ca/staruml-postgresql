@@ -135,7 +135,7 @@ define(function (require, exports, module) {
 		if (typeof map[elem.type] !== 'undefined') {
 			return map[elem.type](elem, options);
 		} else {
-			return "not defined";
+			return elem.type;
 		}
 	}
 
