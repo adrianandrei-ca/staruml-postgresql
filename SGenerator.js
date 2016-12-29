@@ -363,7 +363,7 @@ define(function (require, exports, module) {
 					var prefix = CodeGenUtils.stringTag("prefix", refTableObj._parent)
 					refTableName = prefix + refTableName;
 				}
-				var refSchemaName = self.schemaName(refTableObj._parent._parent, options);
+				var refSchemaName = self.schemaName(refTableObj._parent, options);
 				refs.push("ALTER TABLE " + table + " ADD CONSTRAINT FK_" + tableName + "__" + colName 
 					+ " FOREIGN KEY (" + colName + ") REFERENCES " + refSchemaName + "." + refTableName
 					+ "(" + refColName + ");");
