@@ -103,6 +103,7 @@ define(function (require, exports, module) {
 			return null;
 		}
 		var len = elem.tags.length;
+		var normalized_tag_name = name.toLowerCase();
 		for (var i = 0; i < len; i++) {
 			var tag = elem.tags[i];
 			var tagName = tag.name;
@@ -111,7 +112,7 @@ define(function (require, exports, module) {
 			} else {
 				tagName = tagName.toLowerCase();
 			}
-			if (name.toLowerCase() == tagName) {
+			if (normalized_tag_name == tagName) {
 				return tag;
 			}
 		}
@@ -205,6 +206,20 @@ define(function (require, exports, module) {
 		return escapeCode + "'" + comment + "'";
 	}
 	
+	function enumAsList(enumStr) {
+		var list = enumStr.split(",");
+		var enumDecl = "";
+		var len = list.length;
+		for (var i = 0; i < len; i++) {
+			if (i > 0) {
+				enumDecl += ", ";
+			}
+			enumDecl += "'" + list[i].trim() + "'";
+		}
+		
+		return enumDecl;
+	}
+	
     exports.CodeWriter = CodeWriter;
 	exports.tag = tag;
 	exports.stringTag = stringTag;
@@ -214,4 +229,5 @@ define(function (require, exports, module) {
 	exports.asComment = asComment;
 	exports.isValidIdentifier = isValidIdentifier;
 	exports.replaceAll = replaceAll;
+	exports.enumAsList = enumAsList;
 });

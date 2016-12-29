@@ -163,6 +163,9 @@ define(function (require, exports, module) {
 				doc: CodeGenUtils.asComment(documentation)
 			});
 		}
+		if (typeof(elem.is_enum) !== 'undefined') {
+			elem.type = 'enum';
+		}
         return line;
     };
 
@@ -263,21 +266,45 @@ define(function (require, exports, module) {
      * @param {type.ERDEntity} elem
      * @param {Object} options
      */
-    DDLGenerator.prototype.generateTable = function (codeWriter, dropWriter, elem, options, schemaName, prefix) {
+    DDLGenerator.prototype.generateTable = function (codeWriter, dropWriter, elem, options, schemaName, prefix, refs) {
         var self = this;
         var lines = [],
             primaryKeys = [],
 			foreignKeys = [],
 			foreignKeyCtr = [],
             uniques = [],
-			comments = [];
+			comments = [],
+			drop_enums = [];
 
-		var tableName = self.tableName(elem, options);
-		var table = schemaName + "." + prefix + tableName
+		var tableName = prefix + self.tableName(elem, options);
+		var table = schemaName + "." + tableName
+		
+		// create enums
+		elem.columns.forEach(function (col) {
+			var _type = self.dataType(col, options);
+			if (_type && _type.toLowerCase() === "enum") {
+				var enums = CodeGenUtils.stringTag(_type, col);
+				if (enums) {
+					var column = self.columnName(col, options);
+					var typeName = table + "_" + column;
+					var enumDecl = CodeGenUtils.enumAsList(enums);
+
+					codeWriter.writeLine("CREATE TYPE " + typeName + " AS ENUM(" + enumDecl + ");\n");
+					col.type = typeName;
+					col.is_enum = 1;
+					drop_enums.push("DROP TYPE " + typeName + " CASCADE;");
+				}
+			}
+		});
+		
         // Table
         codeWriter.writeLine("CREATE TABLE " + table + " (");
         codeWriter.indent();
 		dropWriter.writeLine("DROP TABLE " + table + " CASCADE;");
+		// drop enums
+		for (var i = 0, len = drop_enums.length; i < len; i++) {
+            dropWriter.writeLine(drop_enums[i]);
+        }
 
         // Columns
         elem.columns.forEach(function (col) {
@@ -337,15 +364,12 @@ define(function (require, exports, module) {
 					refTableName = prefix + refTableName;
 				}
 				var refSchemaName = self.schemaName(refTableObj._parent._parent, options);
-				codeWriter.writeLine("ALTER TABLE " + table);
-				codeWriter.indent();
-				codeWriter.writeLine("ADD CONSTRAINT FK_" + tableName + "__" + colName 
+				refs.push("ALTER TABLE " + table + " ADD CONSTRAINT FK_" + tableName + "__" + colName 
 					+ " FOREIGN KEY (" + colName + ") REFERENCES " + refSchemaName + "." + refTableName
 					+ "(" + refColName + ");");
-				codeWriter.outdent();
 			}
-			codeWriter.writeLine();
 		}
+		
 		// generate simple FK indexes
 		if (foreignKeys.length > 0) {
 			for (var i = 0, len = foreignKeys.length; i < len; i++) {
@@ -494,6 +518,8 @@ define(function (require, exports, module) {
 
 		var tableCodeWriter = new CodeGenUtils.CodeWriter(self.getIndentString(options));
 		var tableDropWriter = new CodeGenUtils.CodeWriter(self.getIndentString(options));
+		var refs = [];
+		var tableRefs = [];
 		elem.ownedElements.forEach(function (diagram) {
 			console.log(diagram);
 			if (diagram instanceof type.ERDDiagram) {
@@ -503,11 +529,15 @@ define(function (require, exports, module) {
 				var prefix = CodeGenUtils.stringTag("prefix", diagram);
 				diagram.ownedElements.forEach(function (entity) {
 					Toast.info("Generate table DDL for " + entity.name);
-					if (!self.generateTable(codeWriter, dropWriter, entity, options, schema, prefix)) {
+					if (!self.generateTable(codeWriter, dropWriter, entity, options, schema, prefix, refs)) {
 						return false;
 					}
 				});
-
+				// add the references
+				for (var i = 0, len = refs.length; i < len; i++) {
+					codeWriter.writeLine(refs[i]);
+				}
+				
 				if (codeWriter.hasContent()) {
 					var diagName = CodeGenUtils.replaceAll(diagram.name, ' ', '_').toLowerCase();
 					var file = FileSystem.getFileForPath(path + "/" + dataModelName + "_" +
@@ -520,13 +550,16 @@ define(function (require, exports, module) {
 			} else if (diagram instanceof type.ERDEntity) {
 				// generate table
 				Toast.info("Generate table DDL for " + diagram.name);
-				if (!self.generateTable(tableCodeWriter, tableDropWriter, diagram, options, schema, '')) {
+				if (!self.generateTable(tableCodeWriter, tableDropWriter, diagram, options, schema, '', tableRefs)) {
 					return false;
 				}
 			}
 		});
 
 		if (tableCodeWriter.hasContent()) {
+			for (var i = 0, len = tableRefs.length; i < len; i++) {
+				tableCodeWriter.writeLine(tableRefs[i]);
+			}
 			var file = FileSystem.getFileForPath(path + "/" + dataModelName +
 				"_table_create.sql");
 			FileUtils.writeText(file, tableCodeWriter.getData(), true);
