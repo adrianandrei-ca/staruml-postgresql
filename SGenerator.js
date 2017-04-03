@@ -120,7 +120,7 @@ define(function (require, exports, module) {
 			DECIMAL: typeOf("numeric", varLenFunc),
 			NUMERIC: typeOf("numeric", varLenFunc),
 			FLOAT: typeOf("real", noLenFunc),
-			DOUBLE: typeOf("double", noLenFunc),
+			DOUBLE: typeOf("double precision", noLenFunc),
 			BIT: typeOf("bit", varLenFunc),
 			DATE: typeOf("date", noLenFunc),
 			TIME: typeOf("time without time zone", noLenFunc),
