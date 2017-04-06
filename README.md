@@ -49,7 +49,7 @@ The integer columns with length `-1` will be mapped to the equivalent serial typ
 |DECIMAL|numeric| length is used |
 |NUMERIC|numeric| length is used|
 |FLOAT|real| length is ignored|
-|DOUBLE|double| length is ignored|
+|DOUBLE|double precision| length is ignored|
 |BIT|bit| length is used |
 |DATE|date| length is not used |
 |TIME|time without time zone| length is not used |
