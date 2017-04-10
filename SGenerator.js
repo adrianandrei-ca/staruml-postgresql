@@ -290,6 +290,7 @@ define(function (require, exports, module) {
 					var enumDecl = CodeGenUtils.enumAsList(enums);
 
 					codeWriter.writeLine("CREATE TYPE " + typeName + " AS ENUM(" + enumDecl + ");\n");
+					codeWriter.writeLine("CREATE CAST (CHARACTER VARYING AS " + typeName + ") WITH INOUT AS IMPLICIT;\n");
 					col.type = typeName;
 					col.is_enum = 1;
 					drop_enums.push("DROP TYPE " + typeName + " CASCADE;");
