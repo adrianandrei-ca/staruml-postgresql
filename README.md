@@ -115,7 +115,7 @@ For example, the `User` table can be problematic in a real schema as `User` is a
 Postgresql supports enumeration for column value and the plugin allows the user to define them using the `enum` custom tag. The user can declare the column type as `enum` and then add the custom `enum` tag on the column.
 The `value` text field should have the list of possible values. The plugin will subsequently create a dedicated enumration type with the name pattern `table_column`.
 
-In order to facilitate the usage of enumration values an implicit character varying conversion cast is created; as such the user can use the enumeration values as strings without an explicit casting.
+In order to facilitate the usage of enumeration values, an implicit character varying conversion cast is created; as such the user can use the enumeration values as strings without an explicit casting.
 
 In the included example, the Employee status field is a (permanent, temporary) enumeration.
 
