@@ -364,6 +364,7 @@ define(function (require, exports, module) {
 					var prefix = CodeGenUtils.stringTag("prefix", refTableObj._parent)
 					refTableName = prefix + refTableName;
 				}
+
 				var refSchemaName = self.schemaName(refTableObj._parent, options);
 				refs.push("ALTER TABLE " + table + " ADD CONSTRAINT FK_" + tableName + "__" + colName 
 					+ " FOREIGN KEY (" + colName + ") REFERENCES " + refSchemaName + "." + refTableName
@@ -465,6 +466,12 @@ define(function (require, exports, module) {
 	}
 
 	DDLGenerator.prototype.schemaName = function (elem, options) {
+		if (elem instanceof type.ERDDiagram) {
+			elem = elem._parent;
+		}
+		if (!(elem instanceof type.ERDDataModel)) {
+			return 'public';
+		}
 		var dbName = CodeGenUtils.stringTag('schema', elem);
 		if (!dbName) {
 			dbName = 'public';
@@ -522,7 +529,6 @@ define(function (require, exports, module) {
 		var refs = [];
 		var tableRefs = [];
 		elem.ownedElements.forEach(function (diagram) {
-			console.log(diagram);
 			if (diagram instanceof type.ERDDiagram) {
 				var codeWriter = new CodeGenUtils.CodeWriter(self.getIndentString(options));
 				var dropWriter = new CodeGenUtils.CodeWriter(self.getIndentString(options));

@@ -58,6 +58,7 @@ The integer columns with length `-1` will be mapped to the equivalent serial typ
 |TIMESTAMP|timestamp without time zone| length is not used|
 |POINT|point||
 |POLYGON|polygon||
+| enum | [table]_[column] type | enumeration type named with the provided pattern | 
 
 ### Generated files name pattern
 
@@ -98,14 +99,25 @@ It is possible to assist with the code generation through custom tags with speci
 | --- | --- | --- |
 | `database` | `Project` | Overrides the database name given by the normalized project name |
 | `prefix` | `ERDDiagram` | Gives the prefix of all the table names of the diagram |
+| `schema` | `ERDDataModel` | Indicates the schema where the tables will be created |
 | `table` | `Entity` | Override the table name otherwise given by the normalized `Entity` name |
 | `column` | `Column` | Override the column name, otherwise given by the `Column` name |
 | `default` | `Column` | Gives the default column value. The string value is taken as is so user needs to be aware of specific database syntax |
+| `enum` | `Column` | Gives the column comma separated enumeration elements |
 
 - Note: name normalization consists in replacing the space characters with underscores and converting to lower case.
 
 The override tags are used to separate the high level model from the physical model. The model table name may be user/business friendly but the generated one may follow specific constraints that can be hard to follow at the high level.
 For example, the `User` table can be problematic in a real schema as `User` is a keyword but it makes perfect sense while building the model; the database name for this table may end up being `cex_people_usr`.
+
+## Enumeration types
+
+Postgresql supports enumeration for column value and the plugin allows the user to define them using the `enum` custom tag. The user can declare the column type as `enum` and then add the custom `enum` tag on the column.
+The `value` text field should have the list of possible values. The plugin will subsequently create a dedicated enumration type with the name pattern `table_column`.
+
+In order to facilitate the usage of enumration values an implicit character varying conversion cast is created; as such the user can use the enumeration values as strings without an explicit casting.
+
+In the included example, the Employee status field is a (permanent, temporary) enumeration.
 
 ## Options
 
@@ -124,3 +136,9 @@ The following preferences are currently available:
 ## Contributions
 
 Any contributions are welcome. If you find a bug or have a suggestion, please post as an issue.
+
+## Notes.
+
+By default the entities when dropped into the diagram view are added in the model as diagram siblings. They can be manually moved into the diagram manually to achieve a similar structure with the sample included.
+However the generator accommodates for both cases.
+ 

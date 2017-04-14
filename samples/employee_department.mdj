@@ -220,7 +220,7 @@
 										"$ref": "AAAAAAFWxuPO5cHeGzM="
 									},
 									"name": "Status",
-									"documentation": "'P' for permanent (default), 'T' for temporary",
+									"documentation": "permanent (default) or temporary",
 									"tags": [
 										{
 											"_type": "Tag",
@@ -230,13 +230,24 @@
 											},
 											"name": "default",
 											"kind": "string",
-											"value": "'P'",
+											"value": "'permanent'",
+											"checked": false,
+											"number": 0
+										},
+										{
+											"_type": "Tag",
+											"_id": "AAAAAAFbamEFnrfefGg=",
+											"_parent": {
+												"$ref": "AAAAAAFWxvFCnMLBrYA="
+											},
+											"name": "enum",
+											"kind": "string",
+											"value": "permanent, temporary",
 											"checked": false,
 											"number": 0
 										}
 									],
-									"type": "CHAR",
-									"length": "1",
+									"type": "enum",
 									"primaryKey": false,
 									"foreignKey": false,
 									"nullable": false,
@@ -1014,7 +1025,7 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": 478,
-									"top": 259,
+									"top": 291,
 									"width": 53.47900390625,
 									"height": 13,
 									"autoResize": false,
@@ -1106,7 +1117,7 @@
 								"$ref": "AAAAAAFWxuPO6cHgovk="
 							},
 							"lineStyle": 0,
-							"points": "288:271;288:280;720:280;720:226",
+							"points": "288:271;288:312;720:312;720:226",
 							"nameLabel": {
 								"$ref": "AAAAAAFWxunzZsJ9ujE="
 							},
