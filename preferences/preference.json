@@ -1,0 +1,69 @@
+{
+  "id": "psqlddl",
+  "name": "Postgresql DDL",
+  "schema": {
+    "psqlddl.gen": {
+      "text": "Postgresql DDL Generation",
+      "type": "section"
+    },
+    "psqlddl.gen.owner": {
+      "text": "Owner name",
+      "description": "Postgresql objects owner name",
+      "type": "String",
+      "default": "postgres"
+    },
+    "psqlddl.gen.tablespace": {
+      "text": "Storage tablespace name",
+      "description": "Tablespace name where all data will be stored",
+      "type": "string",
+      "default": "pg_default"
+    },
+    "psqlddl.gen.encoding": {
+      "text": "Storage character set",
+      "description": "Character set encoding",
+      "type": "dropdown",
+      "options": [
+        { "value": "BIG5", "text": "Big Five - Traditional Chinese" },
+        { "value": "EUC_KR", "text": "Extended UNIX Code-KR - Korean" },
+        { "value": "EUC_KR", "text": "Extended UNIX Code-KR - Korean" },
+        { "value": "EUC_TW", "text": "Extended UNIX Code-TW - Traditional Chinese, Taiwanese" },
+        { "value": "LATIN10", "text": "ISO 8859-16, ASRO SR 14111 - Romanian" },
+        { "value": "UTF8", "text": "Unicode, 8-bit" }
+      ],
+      "default": "UTF8"
+    },
+    "psqlddl.gen.collation": {
+      "text": "Database collation",
+      "description": "Database collation",
+      "type": "dropdown",
+      "options": [
+        { "value": "default", "text": "default" },
+        { "value": "en_AU.utf8", "text": "en_AU.utf8" },
+        { "value": "en_US.utf8", "text": "en_US.utf8" },
+        { "value": "en_CA.utf8", "text": "en_CA.utf8" },
+        { "value": "en_GB.utf8", "text": "en_GB.utf8" },
+        { "value": "en_HK.utf8", "text": "en_HK.utf8"},
+        { "value": "POSIX", "text": "POSIX" }
+      ],
+      "default": "default"
+    },
+    "psqlddl.gen.foreignKeyConstraint": {
+      "text": "Generate Foregin Key Constraints",
+      "description": "Generate Foreign Key constraint when reference field is populated.",
+      "type": "check",
+      "default": false
+    },
+    "psqlddl.gen.useTab": {
+      "text": "Use Tab",
+      "description": "Use Tab for indentation instead of spaces.",
+      "type": "check",
+      "default": false
+    },
+    "psqlddl.gen.indentSpaces": {
+      "text": "Indent Spaces",
+      "description": "Number of spaces for indentation.",
+      "type": "number",
+      "default": 4
+    }
+  }
+}

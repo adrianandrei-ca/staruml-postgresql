@@ -1,0 +1,18 @@
+{
+  "menu": [
+    {
+      "id": "tools",
+      "submenu": [
+        {
+          "label": "PostgreSQL DDL",
+          "id": "tools.psqlddl",
+          "submenu": [
+            { "label": "Generate DDL files", "id": "tools.psqlddl.generate", "command": "psqlddl:generate" },
+            { "type": "separator" },
+            { "label": "Configure...", "id": "tools.psqlddl.configure", "command": "psqlddl:configure" }
+          ]
+        }
+      ]
+    }
+  ]
+}
