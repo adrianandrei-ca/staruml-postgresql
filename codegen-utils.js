@@ -152,14 +152,16 @@ function stringTag(name, elem) {
 
 function addStringTag(name, elem, value) {
 	var options = {
+    id: "Tag",
+    parent: elem,
+    field: "tags",
 		modelInitializer: function (tag) {
 			tag.name = name;
 			tag.kind = type.Tag.TK_STRING;
 			tag.value = value;
 		}
 	}
-  Factory.createModel("Tag", elem, 'tags', options);
-  // TODO Review
+  app.factory.createModel(options);
 }
 
 function isValidIdentifier(name) {
