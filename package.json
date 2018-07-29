@@ -5,7 +5,7 @@
     "homepage": "https://github.com/adrianandrei-ca/staruml-postgresql",
     "issues": "https://github.com/adrianandrei-ca/staruml-postgresql/issues",
     "keywords": ["ddl", "erd", "database", "postgresql"],
-    "version": "1.1.0",
+    "version": "2.0.0",
     "author": {
         "name": "Adrian Andrei",
         "email": "adrian.andrei.ca@gmail.com",
