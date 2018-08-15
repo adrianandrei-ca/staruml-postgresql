@@ -161,7 +161,7 @@ class DDLGenerator {
 
 
     /**
-     * Write Foreign Keys
+     * Create indexes for Foreign Key columns
      * @param {StringWriter} codeWriter
      * @param {type.ERDEntity} elem
      * @param {Object} options
@@ -310,7 +310,7 @@ class DDLGenerator {
     						if (column && col.foreignKey && !col.primaryKey) {
     							foreignKeys.push(column);
     						}
-    				if (options.foreignKey && col.referenceTo) {
+    				if (options.foreignKeyConstraint && col.referenceTo) {
     					foreignKeyCtr.push(col);
     				}
     			}
