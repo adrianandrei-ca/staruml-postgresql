@@ -51,7 +51,7 @@
       "text": "Generate Foregin Key Constraints",
       "description": "Generate Foreign Key constraint when reference field is populated.",
       "type": "check",
-      "default": false
+      "default": true
     },
     "psqlddl.gen.useTab": {
       "text": "Use Tab",
