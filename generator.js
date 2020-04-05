@@ -76,7 +76,7 @@ class DDLGenerator {
 
     dataType(elem, options) {
 		    var varLenFunc = function (elem, options) {
-    			  return "(" + elem.length + ")";
+    			  return elem.length.length ? "(" + elem.length + ")" : "";
     		}
     		var noLenFunc = function (elem, options) {
     			return "";
