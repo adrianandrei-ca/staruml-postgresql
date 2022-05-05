@@ -9,7 +9,7 @@
     "psqlddl.gen.owner": {
       "text": "Owner name",
       "description": "Postgresql objects owner name",
-      "type": "String",
+      "type": "string",
       "default": "postgres"
     },
     "psqlddl.gen.tablespace": {
